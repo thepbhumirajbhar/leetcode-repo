@@ -2,25 +2,30 @@ class Solution {
     public boolean isValid(String s) {
     // Method 2: 
        if(s.length() % 2 != 0) return false;
-
-       char[] stack  = new char[s.length()];
+       
+       // Since valid matching requires pairs, a valid string can never have more than s.length() / 2 opening brackets.
+       char[] stack  = new char[s.length()/2];
        int head = 0;
 
-       for(char ch: s.toCharArray()){
+       for(int i = 0; i< s.length(); i++){
+        char ch = s.charAt(i);
         if(ch == '('){
+            if(head == stack.length) return false;
             stack[head++] = ')';
         }
         else if(ch == '{'){
+            if(head == stack.length) return false;
             stack[head++] = '}';
         }
         else if(ch == '['){
+            if(head == stack.length) return false;
             stack[head++] = ']';
         }
         else if(head == 0 || stack[--head] != ch){
             return false;
         }
        }  
-       return head == 0; 
+    return head == 0; 
 
 
 
