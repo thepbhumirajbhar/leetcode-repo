@@ -1,6 +1,6 @@
 class Solution {
     public String minRemoveToMakeValid(String s) {
-    // METHOD 2: 
+    // METHOD 2: (more optimised)
     char[] arr = s.toCharArray();
     int open = 0;
 
@@ -17,7 +17,7 @@ class Solution {
         }
     }
 
-    // Pass 2: Remove excess '(' from right to left
+    // Pass 2: Remove excess '(' from right to left: after full string is processed, open > 0 means that many ( were never matched → remove them!
     for(int i = arr.length-1; i >= 0; i--){
         if(open > 0 && arr[i] == '('){
             arr[i] = '*';
