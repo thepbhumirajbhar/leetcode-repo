@@ -1,13 +1,13 @@
 class Solution {
     public List<String> generateParenthesis(int n){
         List<String> result = new ArrayList<>();
-        helper(result, new StringBuilder(), 0, 0, n);
+        helper(result, new StringBuilder(2 * n), 0, 0, n);
         return result;
     }
 
     private void helper(List<String> result, StringBuilder current,int open, int close, int n){
         //base case
-        if(current.length() == 2*n){
+        if(current.length() == 2 * n){
             result.add(current.toString());
             return;
         }
