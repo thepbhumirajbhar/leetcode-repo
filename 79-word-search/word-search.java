@@ -36,14 +36,14 @@ class Solution {
         board[i][j] = '*' ;
 
         // Explore 4 directions
-        boolean found = helper(board, word, i+1, j, index+1) ||
-                        helper(board, word, i-1, j, index+1) ||
-                        helper(board, word, i, j+1, index+1) ||
-                        helper(board, word, i, j-1, index+1);
-
-
+        if (helper(board, word, i + 1, j, index + 1) ||
+            helper(board, word, i - 1, j, index + 1) ||
+            helper(board, word, i, j + 1, index + 1) ||
+            helper(board, word, i, j - 1, index + 1)) {
+            return true;
+        }
+        
         board[i][j] = temp;
-
-        return found;
+        return false;
     }
 }
