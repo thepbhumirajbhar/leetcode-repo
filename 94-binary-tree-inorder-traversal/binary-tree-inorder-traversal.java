@@ -13,27 +13,49 @@
  *     }
  * }
  */
+
+
+// ------------APPROACH 1
+
+// class Solution {
+//     public List<Integer> inorderTraversal(TreeNode root) {
+//         List<Integer> inOrder = new ArrayList<>();
+//         Stack<TreeNode> stack = new Stack<TreeNode>();
+
+//         TreeNode node = root;
+
+//         while(true){
+//             if(node != null){
+//                 stack.push(node);
+//                 node = node.left;
+//             }
+//             else{
+//                 if(stack.isEmpty()){
+//                     break;
+//                 }
+//                 node = stack.pop();
+//                 inOrder.add(node.val);
+//                 node = node.right;
+//             }
+//         }
+//         return inOrder;
+//     }
+// }
+
+
+// --------------APPROACH 2
 class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> inOrder = new ArrayList<>();
-        Stack<TreeNode> stack = new Stack<TreeNode>();
-
-        TreeNode node = root;
-
-        while(true){
-            if(node != null){
-                stack.push(node);
-                node = node.left;
-            }
-            else{
-                if(stack.isEmpty()){
-                    break;
-                }
-                node = stack.pop();
-                inOrder.add(node.val);
-                node = node.right;
-            }
-        }
+        traverse(root, inOrder);
         return inOrder;
+    }
+    
+    private void traverse(TreeNode node, List<Integer> inOrder) {
+        if (node == null) return;
+        
+        traverse(node.left, inOrder);
+        inOrder.add(node.val);
+        traverse(node.right, inOrder);
     }
 }
