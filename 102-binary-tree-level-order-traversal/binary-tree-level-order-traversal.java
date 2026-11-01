@@ -18,12 +18,12 @@ class Solution {
        List<List<Integer>> result = new ArrayList<>();
        if(root == null) return result;
 
-       Queue<TreeNode> queue = new LinkedList<>();
+       Queue<TreeNode> queue = new ArrayDeque<>();
        queue.offer(root);
 
        while(!queue.isEmpty()){
             int levelSize = queue.size();
-            List<Integer> currentLevel = new ArrayList<>();
+            List<Integer> currentLevel = new ArrayList<>(levelSize);
     
             for(int i = 0; i < levelSize; i++){
                 TreeNode currentNode = queue.poll();
