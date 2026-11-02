@@ -14,7 +14,47 @@
  * }
  */
 
-// MOST BRUTE FORCE: Collect nodes level-by-level using standard BFS, and then reverse the elements of every alternate level list before adding them to the final result.
+// -----------------MOST BRUTE FORCE: Collect nodes level-by-level using standard BFS, and then reverse the elements of every alternate level list before adding them to the final result.
+
+// class Solution {
+//     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+//         List<List<Integer>> result = new ArrayList<>();
+
+//         if(root == null) return result;
+
+//         Queue<TreeNode> queue = new ArrayDeque<>();
+//         queue.offer(root);
+//         boolean reverse = false;             // flag that track when to reverse the level
+
+//         while(!queue.isEmpty()){
+//             int levelSize = queue.size();
+//             List<Integer> currentLevel = new ArrayList<>(levelSize);
+
+//             for(int i = 0; i < levelSize; i++){
+//                 TreeNode currentNode = queue.poll();
+//                 currentLevel.add(currentNode.val);
+
+//                 if (currentNode.left != null) {
+//                     queue.offer(currentNode.left);
+//                 }
+//                 if (currentNode.right != null) {
+//                     queue.offer(currentNode.right);
+//                 }
+//             }
+
+//             if(reverse){
+//                 Collections.reverse(currentLevel);
+//             }
+
+//             result.add(currentLevel);
+//             reverse = !reverse;
+//         }
+//         return result;
+//     }
+// }
+
+
+// -----------------BETTER 
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>();
@@ -23,15 +63,19 @@ class Solution {
 
         Queue<TreeNode> queue = new ArrayDeque<>();
         queue.offer(root);
-        boolean reverse = false;             // flag that track when to reverse the level
+        boolean left2right = true;
 
         while(!queue.isEmpty()){
             int levelSize = queue.size();
-            List<Integer> currentLevel = new ArrayList<>(levelSize);
+            LinkedList<Integer> currentLevel = new LinkedList<>();
 
             for(int i = 0; i < levelSize; i++){
                 TreeNode currentNode = queue.poll();
-                currentLevel.add(currentNode.val);
+
+                if(left2right) currentLevel.addLast(currentNode.val);
+                else{
+                    currentLevel.addFirst(currentNode.val);
+                }
 
                 if (currentNode.left != null) {
                     queue.offer(currentNode.left);
@@ -40,13 +84,8 @@ class Solution {
                     queue.offer(currentNode.right);
                 }
             }
-
-            if(reverse){
-                Collections.reverse(currentLevel);
-            }
-
             result.add(currentLevel);
-            reverse = !reverse;
+            left2right = !left2right;
         }
         return result;
     }
